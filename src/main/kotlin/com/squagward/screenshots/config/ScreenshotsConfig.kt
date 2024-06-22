@@ -85,7 +85,6 @@ class ScreenshotsConfig {
                     .controller(TickBoxControllerBuilder::create)
                     .listener { _, value: Boolean ->
                         cropImageOption.setAvailable(value)
-                        pauseGameWhileCroppingOption.setAvailable(value)
                         saveScreenshotOption.setAvailable(value)
                         copyToClipboardOption.setAvailable(value)
                     }

@@ -29,13 +29,15 @@ object ScreenshotHud {
         get() = mc.window
     private var image: NativeImage? = null
     private var texture: NativeImageBackedTexture? = null
-    private val id = Identifier("screenshots", "textures/background.png")
+    private val id = Identifier.of("screenshots", "textures/background.png")
 
     init {
         val outside = 0x99111111.toInt()
 
         ScreenEvents.AFTER_INIT.register outer@{ _, screen: Screen, _, _ ->
-            destroy()
+            if (screen !is ScreenshotScreen) {
+                destroy()
+            }
 
             ScreenEvents.afterRender(screen).register { _, context: DrawContext, _, _, _ ->
                 if (!Screenshots.displayScreenshotHud) return@register

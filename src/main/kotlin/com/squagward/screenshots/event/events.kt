@@ -9,12 +9,13 @@ fun interface ScreenDragCallback {
 
     companion object {
         @JvmField
-        val EVENT: Event<ScreenDragCallback> = EventFactory.createArrayBacked(ScreenDragCallback::class.java) { listeners ->
-            ScreenDragCallback { screen, mx, my, dx, dy ->
-                listeners.forEach {
-                    it.drag(screen, mx, my, dx, dy)
+        val EVENT: Event<ScreenDragCallback> =
+            EventFactory.createArrayBacked(ScreenDragCallback::class.java) { listeners ->
+                ScreenDragCallback { screen, mx, my, dx, dy ->
+                    listeners.forEach {
+                        it.drag(screen, mx, my, dx, dy)
+                    }
                 }
             }
-        }
     }
 }

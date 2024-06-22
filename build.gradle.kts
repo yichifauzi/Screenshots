@@ -1,7 +1,8 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    kotlin("jvm") version "1.9.0"
-    kotlin("plugin.serialization") version "1.9.21"
-    id("fabric-loom") version "1.4-SNAPSHOT"
+    kotlin("jvm") version "2.0.0"
+    id("fabric-loom") version "1.7-SNAPSHOT"
 }
 
 version = property("mod_version")!!.toString()
@@ -19,6 +20,7 @@ repositories {
     // for more information about repositories.
     maven("https://maven.isxander.dev/releases")
     maven("https://maven.terraformersmc.com/releases")
+    maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
 }
 
 dependencies {
@@ -31,10 +33,11 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
     modImplementation("net.fabricmc:fabric-language-kotlin:${property("fabric_kotlin_version")}")
 
-    modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:${property("yacl_version")}")
+    modImplementation("dev.isxander:yet-another-config-lib:${property("yacl_version")}")
     modApi("com.terraformersmc:modmenu:${property("modmenu_version")}") {
         exclude("net.fabricmc")
     }
+    modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${property("devauth_version")}")
 
     implementation("ca.weblite:java-objc-bridge:1.2")
 }
@@ -53,12 +56,12 @@ tasks {
     }
 
     withType<JavaCompile>().configureEach {
-        options.release.set(17)
+        options.release.set(21)
     }
 
-    compileKotlin {
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_17.toString()
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
         }
     }
 
@@ -72,6 +75,6 @@ tasks {
 java {
     withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }

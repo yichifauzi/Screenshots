@@ -17,7 +17,8 @@ object MacOSCompat {
 
         // thank you DJtheRedstoner :)
         val client = Client.getInstance()
-        val data = client.sendProxy("NSData", "dataWithBytes:length:", image.bytes, image.bytes.size) // this might not work
+        val data =
+            client.sendProxy("NSData", "dataWithBytes:length:", image.bytes, image.bytes.size) // this might not work
         val pasteboard = client.sendProxy("NSPasteboard", "generalPasteboard")
         pasteboard.send("clearContents")
         val wasSuccessful = pasteboard.sendBoolean("setData:forType:", data, "public.png")

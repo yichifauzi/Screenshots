@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Mouse.class)
 public class MouseMixin {
-    @Inject(method = "method_1602", at = @At("HEAD"))
+    @Inject(method = "method_55795", at = @At("HEAD"))
     private void screenshots$mouseDragged(Screen screen, double mx, double my, double dx, double dy, CallbackInfo ci) {
         ScreenDragCallback.EVENT.invoker().drag(screen, mx, my, dx, dy);
     }
